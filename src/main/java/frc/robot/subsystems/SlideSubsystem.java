@@ -31,6 +31,8 @@ public class SlideSubsystem extends Subsystem {
   private static final double AUTOLIFTSPEED = 10.0; //inches per second
   private static final double SECONDS_PER_TICK = .02; // seconds per encoder tic
   private static final double COUNTS_PER_INCH = 150; // encoder counts per inch
+  private static final double POSITIVE_LIMIT_IN = 4.5;
+  private static final double NEGATIVE_LIMIT_IN = -4.5;
   private static final int TALON_TIMEOUT_MS = 1000; 
   private static final double DISTANCE_PER_TICK = AUTOLIFTSPEED * SECONDS_PER_TICK; // inches travelled per encoder tick
 
@@ -116,7 +118,7 @@ public class SlideSubsystem extends Subsystem {
         m_autoActiveslide = false;
       }else{
         if (m_autoDistance > 0) {
-          m_position_in += DISTANCE_PER_TICK;
+          m_position_in += DISTANCE_PER_TICK; 
           m_autoDistance -= DISTANCE_PER_TICK;
         } else if (m_autoDistance < 0) {
           m_position_in -= DISTANCE_PER_TICK;
@@ -128,6 +130,14 @@ public class SlideSubsystem extends Subsystem {
       m_position_in += m_speed_ips * SECONDS_PER_TICK;
     }
     
+    if (m_position_in > POSITIVE_LIMIT_IN){
+      m_position_in = POSITIVE_LIMIT_IN;
+    }
+
+    if (m_position_in < NEGATIVE_LIMIT_IN){
+      m_position_in = NEGATIVE_LIMIT_IN;
+    }
+
     m_position_counts = m_position_in * COUNTS_PER_INCH; //converts desired position to counts
     if (m_motorSlide != null) { //moves tha motor to desired position
       m_motorSlide.set(ControlMode.Position, m_position_counts);

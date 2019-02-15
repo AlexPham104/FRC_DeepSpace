@@ -65,7 +65,7 @@ public class RobotMap {
     briefcase.put(MapKeys.SOLENOID_FRONTRIGHTRETRACT, 0);
     briefcase.put(MapKeys.SOLENOID_BACKRIGHTEXTEND, 0);
     briefcase.put(MapKeys.SOLENOID_BACKRIGHTRETRACT, 0);
-
+    
     briefcase.put(MapKeys.PCM_CLIMBCANID2, 0);
     briefcase.put(MapKeys.SOLENOID_LOWERFRONTEXTEND, 0);
     briefcase.put(MapKeys.SOLENOID_LOWERFRONTRETRACT, 0);
