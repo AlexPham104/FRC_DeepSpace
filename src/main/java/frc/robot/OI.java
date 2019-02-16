@@ -3,7 +3,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.SendableBase;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
+import edu.wpi.first.wpilibj.buttons.POVButton;
 import frc.robot.commands.*;
 
 
@@ -14,7 +14,7 @@ public class OI{
 
 
   Joystick joy = new Joystick(0);
-
+  Joystick joy2 = new Joystick(1);
   
   int CLIMB_BUTTON = 1;
   public JoystickButton xButton = new JoystickButton(joy, CLIMB_BUTTON);
@@ -37,15 +37,14 @@ public class OI{
   private final int Lvl3CLIMB_BUTTON = 3;//cant find button
   private final int CLIMBNEXT_BUTTON = 6;
   private final int CLIMBPREV_BUTTON = 5;
-  private final int SLIDERESET_BUTTON = 0;
+  private final int SLIDERESET_BUTTON = 270;
   public JoystickButton xButton1 = new JoystickButton(joy, CAMERA_BUTTON);
 	public JoystickButton backButton1 = new JoystickButton(joy, Lvl2DESC_BUTTON);
 	public JoystickButton startButton1 = new JoystickButton(joy, Lvl2CLIMB_BUTTON);
   public JoystickButton leftBumper1 = new JoystickButton(joy, CLIMBPREV_BUTTON);
   public JoystickButton rightBumper1 = new JoystickButton(joy, CLIMBNEXT_BUTTON);
-  public JoystickButton dpadUP = new JoystickButton(joy, SLIDERESET_BUTTON);
-
-  Joystick joy2 = new Joystick(1);
+  public POVButton dpadUp = new POVButton(joy2, SLIDERESET_BUTTON);
+  
 
 
   private final int HIGHHATCH_BUTTON = 4;
@@ -86,7 +85,7 @@ public class OI{
     bButton2.whenActive(new GrabberExtend()); //toggle for clamp
     bButton2.whenInactive(new GrabberRetract()); //toggle for clamp
 
-    dpadUP.whenPressed(new slideResetCommand());
+    dpadUp.whenPressed(new slideResetCommand());
   }
   public double readPositionDeg() {
     double input = m_controller.getRawAxis(POS_HOLD_AXIS);  // get joystick position, in range -1.0 to 1.0
