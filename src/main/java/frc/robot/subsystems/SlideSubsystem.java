@@ -27,14 +27,14 @@ public class SlideSubsystem extends Subsystem {
   private double m_speed_ips; //inches per second
   private double m_position_in; //desired position in inches
   private double m_position_counts; 
-  private static final double MAXSPEED = 20.0; //inches per second
-  private static final double AUTOLIFTSPEED = 10.0; //inches per second
+  private static final double MAXSPEED = 5.0; //inches per second
+  private static final double AUTOSLIDESPEED = 2.0; //inches per second
   private static final double SECONDS_PER_TICK = .02; // seconds per encoder tic
-  private static final double COUNTS_PER_INCH = 150; // encoder counts per inch
+  private static final double COUNTS_PER_INCH = 2560; // encoder counts per inch
   private static final double POSITIVE_LIMIT_IN = 4.5;
   private static final double NEGATIVE_LIMIT_IN = -4.5;
   private static final int TALON_TIMEOUT_MS = 1000; 
-  private static final double DISTANCE_PER_TICK = AUTOLIFTSPEED * SECONDS_PER_TICK; // inches travelled per encoder tick
+  private static final double DISTANCE_PER_TICK = AUTOSLIDESPEED * SECONDS_PER_TICK; // inches travelled per period tick
 
   private double m_p = 1.0;
   private double m_i = 0.001;
@@ -158,6 +158,11 @@ public void startAutomoveSlide(double position_in) {
 public boolean autoMoveFinishedSlide() {
 	return !m_autoActiveslide;
 }
-
+public void set0position() {
+  m_motorSlide.setSelectedSensorPosition(0);
+}
+public void slideResetCommand() {
+  startAutomoveSlide(0.0);
+}
   
 } 

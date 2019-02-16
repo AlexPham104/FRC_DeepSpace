@@ -37,12 +37,13 @@ public class OI{
   private final int Lvl3CLIMB_BUTTON = 3;//cant find button
   private final int CLIMBNEXT_BUTTON = 6;
   private final int CLIMBPREV_BUTTON = 5;
+  private final int SLIDERESET_BUTTON = 0;
   public JoystickButton xButton1 = new JoystickButton(joy, CAMERA_BUTTON);
 	public JoystickButton backButton1 = new JoystickButton(joy, Lvl2DESC_BUTTON);
 	public JoystickButton startButton1 = new JoystickButton(joy, Lvl2CLIMB_BUTTON);
   public JoystickButton leftBumper1 = new JoystickButton(joy, CLIMBPREV_BUTTON);
   public JoystickButton rightBumper1 = new JoystickButton(joy, CLIMBNEXT_BUTTON);
-    
+  public JoystickButton dpadUP = new JoystickButton(joy, SLIDERESET_BUTTON);
 
   Joystick joy2 = new Joystick(1);
 
@@ -85,7 +86,7 @@ public class OI{
     bButton2.whenActive(new GrabberExtend()); //toggle for clamp
     bButton2.whenInactive(new GrabberRetract()); //toggle for clamp
 
-    
+    dpadUP.whenPressed(new slideResetCommand());
   }
   public double readPositionDeg() {
     double input = m_controller.getRawAxis(POS_HOLD_AXIS);  // get joystick position, in range -1.0 to 1.0
