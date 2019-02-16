@@ -111,7 +111,7 @@ public class SlideSubsystem extends Subsystem {
   @Override
   public void periodic() {
     //if auto is active, do second if loop, if not, revert to manual position
-    if(false) { //If m_autoActiveSlide
+    if(m_autoActiveslide) {
 
       if (Math.abs(m_autoDistance) < Math.abs(DISTANCE_PER_TICK)) { //if there is only a small distance left to travel, finishes auto move
         m_position_in += m_autoDistance;
