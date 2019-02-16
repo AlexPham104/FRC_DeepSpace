@@ -53,7 +53,8 @@ public class SlideSubsystem extends Subsystem {
     configTalons();
     m_position_in = 0.0;
     m_speed_ips = 0.0;
-
+    m_autoActiveslide = false;
+    m_autoDistance = 0;
 
     
   }
@@ -110,7 +111,7 @@ public class SlideSubsystem extends Subsystem {
   @Override
   public void periodic() {
     //if auto is active, do second if loop, if not, revert to manual position
-    if(m_autoActiveslide) {
+    if(false) { //If m_autoActiveSlide
 
       if (Math.abs(m_autoDistance) < Math.abs(DISTANCE_PER_TICK)) { //if there is only a small distance left to travel, finishes auto move
         m_position_in += m_autoDistance;

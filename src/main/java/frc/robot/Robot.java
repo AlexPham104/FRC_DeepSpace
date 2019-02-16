@@ -57,6 +57,7 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", new GrabberOff()); 
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+    m_slide.set0position();
 
   }
 
@@ -111,6 +112,7 @@ public class Robot extends TimedRobot {
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
+      
     }
   }
 
