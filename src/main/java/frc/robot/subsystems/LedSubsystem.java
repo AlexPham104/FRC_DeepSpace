@@ -299,7 +299,7 @@ public void LiftDrive(){
 }
 
 public void climbDescend(){
-  if (Robot.climbSubsystem.stateDescend() == true){
+  if (Robot.m_climbSubsystem.stateDescend() == true){
     m_pixel[29].set((byte) 50,(byte) 171,(byte) 0);
     m_pixel[30].set((byte) 50,(byte) 171,(byte) 0);
     m_pixel[31].set((byte) 50,(byte) 171,(byte) 0);

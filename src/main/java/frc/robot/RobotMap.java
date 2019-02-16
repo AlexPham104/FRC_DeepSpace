@@ -52,7 +52,7 @@ public class RobotMap {
     briefcase.put(MapKeys.DRIVE_BACKLEFT, 0);
     briefcase.put(MapKeys.DRIVE_BACKRIGHT, 0);
 
-    briefcase.put(MapKeys.SLIDE, 9);
+    briefcase.put(MapKeys.SLIDE, 4);
     briefcase.put(MapKeys.LIFT_LEFT, 0);
     briefcase.put(MapKeys.LIFT_RIGHT, 0);
 

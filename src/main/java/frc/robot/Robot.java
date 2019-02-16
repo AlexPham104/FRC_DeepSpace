@@ -7,15 +7,16 @@
 
 package frc.robot;
 
-
-import edu.wpi.first.wpilibj.PowerDistributionPanel;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.SlideSubsystem;
+
 
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
@@ -24,8 +25,6 @@ import frc.robot.subsystems.*;
 	JAGBOTS 2019 DEEP SPACE CODE
 	
  */
-import frc.robot.subsystems.ClimbSubsystem;
-import frc.robot.subsystems.LedSubsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -37,19 +36,16 @@ import frc.robot.subsystems.LedSubsystem;
 public class Robot extends TimedRobot {
   public static OI m_oi;
   public static RobotMap m_map = new RobotMap();
-  public static PowerDistributionPanel m_pdp = new PowerDistributionPanel();
-  public static LedSubsystem a_Subsystem = new LedSubsystem();
-  public static ClimbSubsystem climbSubsystem = new ClimbSubsystem();
+  public static LedSubsystem m_ledSubsystem = new LedSubsystem();
+  public static ClimbSubsystem m_climbSubsystem = new ClimbSubsystem();
   public static GrabberHandSubsystem m_grabberHand = new GrabberHandSubsystem();
   public static GrabberArmSubsystem m_grabberArm = new GrabberArmSubsystem();
   public static DriveTrain m_drivetrain = new DriveTrain();
   public static LiftSubsystem m_lift = new LiftSubsystem();
   public static SlideSubsystem m_slide = new SlideSubsystem();
-  
 
- Command m_autonomousCommand;
+  Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
-
 
   /**
    * This function is run when the robot is first started up and should be
@@ -61,8 +57,6 @@ public class Robot extends TimedRobot {
     m_chooser.setDefaultOption("Default Auto", new GrabberOff()); 
     // chooser.addOption("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
-
-
 
   }
 
@@ -85,7 +79,6 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void disabledInit() {
-    m_lift.m_motorup1.setIntegralAccumulator(0);
   }
 
   @Override
@@ -107,12 +100,12 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
-    m_slide.set0position();
+
     /*
      * String autoSelected = SmartDashboard.getString("Auto Selector",
      * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
      * = new MyAutoCommand(); break; case "Default Auto": default:
-     * autonomousCommand = new SolenoidCommand(); break; }
+     * autonomousCommand = new ExampleCommand(); break; }
      */
 
     // schedule the autonomous command (example)
@@ -127,7 +120,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousPeriodic() {
     Scheduler.getInstance().run();
-    
+    axisControls();
   }
 
   @Override
@@ -138,6 +131,7 @@ public class Robot extends TimedRobot {
     // this line or comment it out.
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
+      
     }
   }
 
@@ -147,7 +141,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-    
+    axisControls();
   }
 
   /**
@@ -157,4 +151,9 @@ public class Robot extends TimedRobot {
   public void testPeriodic() {
   }
 
+  public void axisControls() {
+    m_drivetrain.update(Robot.m_oi.getForwardValue(), Robot.m_oi.getTurnValue());
+    m_lift.update(Robot.m_oi.getLiftValue());
+    m_slide.update(Robot.m_oi.getSlideValue());
+  }
 }
